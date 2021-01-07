@@ -1,6 +1,7 @@
 import Vehicle from '../models/Vehicle';
+import VehiclesRepository from '../repositories/VehiclesRepository';
 
-interface CreateVehicleDTO {
+interface Request {
   mark: string;
   model: string;
   year: string;
@@ -11,18 +12,14 @@ interface CreateVehicleDTO {
   photos: string;
 }
 
-class VehiclesRepository {
-  private vehicles: Vehicle[];
+class CreateVehicleService {
+  private vehiclesRepository: VehiclesRepository;
 
-  constructor() {
-    this.vehicles = [];
+  constructor(vehiclesRepository: VehiclesRepository) {
+    this.vehiclesRepository = vehiclesRepository;
   }
 
-  public all(): Vehicle[] {
-    return this.vehicles;
-  }
-
-  public create({
+  public execute({
     mark,
     model,
     year,
@@ -31,8 +28,8 @@ class VehiclesRepository {
     gas_type,
     used_km,
     photos,
-  }: CreateVehicleDTO) {
-    const vehicle = new Vehicle({
+  }: Request): Vehicle {
+    const vehicle = this.vehiclesRepository.create({
       mark,
       model,
       year,
@@ -43,10 +40,8 @@ class VehiclesRepository {
       photos,
     });
 
-    this.vehicles.push(vehicle);
-
     return vehicle;
   }
 }
 
-export default VehiclesRepository;
+export default CreateVehicleService;

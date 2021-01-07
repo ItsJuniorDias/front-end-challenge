@@ -1,5 +1,17 @@
 import { uuid } from 'uuidv4';
 
+interface IVehicleModel {
+  id?: string;
+  mark: string;
+  model: string;
+  year: string;
+  price: number;
+  category: string;
+  gas_type: string;
+  used_km: number;
+  photos: string;
+}
+
 class Vehicle {
   id: string;
 
@@ -19,16 +31,16 @@ class Vehicle {
 
   photos: string;
 
-  constructor(
-    mark: string,
-    model: string,
-    year: string,
-    price: number,
-    category: string,
-    gas_type: string,
-    used_km: number,
-    photos: string,
-  ) {
+  constructor({
+    mark,
+    model,
+    year,
+    price,
+    category,
+    gas_type,
+    used_km,
+    photos,
+  }: IVehicleModel) {
     this.id = uuid();
     this.mark = mark;
     this.model = model;

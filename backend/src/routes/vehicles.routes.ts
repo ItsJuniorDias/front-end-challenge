@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import Vehicle from '../models/Vehicle';
 import VehiclesRepository from '../repositories/VehiclesRepository';
+import CreateVehicleService from '../services/CreateVehicleService';
 
 const vehiclesRouter = Router();
 const vehiclesRepository = new VehiclesRepository();
@@ -13,29 +13,35 @@ vehiclesRouter.get('/', (request, response) => {
 });
 
 vehiclesRouter.post('/', (request, response) => {
-  const {
-    mark,
-    model,
-    year,
-    price,
-    category,
-    gas_type,
-    used_km,
-    photos,
-  } = request.body;
+  try {
+    const {
+      mark,
+      model,
+      year,
+      price,
+      category,
+      gas_type,
+      used_km,
+      photos,
+    } = request.body;
 
-  const vehicle = vehiclesRepository.create(
-    mark,
-    model,
-    year,
-    price,
-    category,
-    gas_type,
-    used_km,
-    photos,
-  );
+    const createVehicle = new CreateVehicleService(vehiclesRepository);
 
-  return response.json(vehicle);
+    const vehicle = createVehicle.execute({
+      mark,
+      model,
+      year,
+      price,
+      category,
+      gas_type,
+      used_km,
+      photos,
+    });
+
+    return response.json(vehicle);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
 });
 
 export default vehiclesRouter;
