@@ -1,10 +1,16 @@
 import { Router } from 'express';
-import { uuid } from 'uuidv4';
+
 import Vehicle from '../models/Vehicle';
+import VehiclesRepository from '../repositories/VehiclesRepository';
 
 const vehiclesRouter = Router();
+const vehiclesRepository = new VehiclesRepository();
 
-const vehicles: Vehicle[] = [];
+vehiclesRouter.get('/', (request, response) => {
+  const vehicles = vehiclesRepository.all();
+
+  return response.json(vehicles);
+});
 
 vehiclesRouter.post('/', (request, response) => {
   const {
@@ -18,7 +24,7 @@ vehiclesRouter.post('/', (request, response) => {
     photos,
   } = request.body;
 
-  const vehicle = new Vehicle(
+  const vehicle = vehiclesRepository.create(
     mark,
     model,
     year,
@@ -28,8 +34,6 @@ vehiclesRouter.post('/', (request, response) => {
     used_km,
     photos,
   );
-
-  vehicles.push(vehicle);
 
   return response.json(vehicle);
 });
