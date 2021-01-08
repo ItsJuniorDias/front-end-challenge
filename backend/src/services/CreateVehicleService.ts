@@ -1,3 +1,4 @@
+import { getCustomRepository } from 'typeorm';
 import Vehicle from '../models/Vehicle';
 import VehiclesRepository from '../repositories/VehiclesRepository';
 
@@ -12,13 +13,7 @@ interface Request {
 }
 
 class CreateVehicleService {
-  private vehiclesRepository: VehiclesRepository;
-
-  constructor(vehiclesRepository: VehiclesRepository) {
-    this.vehiclesRepository = vehiclesRepository;
-  }
-
-  public execute({
+  public async execute({
     mark,
     model,
     year,
@@ -26,8 +21,10 @@ class CreateVehicleService {
     category,
     gas_type,
     used_km,
-  }: Request): Vehicle {
-    const vehicle = this.vehiclesRepository.create({
+  }: Request): Promise<Vehicle> {
+    const vehiclesRepository = getCustomRepository(VehiclesRepository);
+
+    const vehicle = vehiclesRepository.create({
       mark,
       model,
       year,
@@ -36,6 +33,8 @@ class CreateVehicleService {
       gas_type,
       used_km,
     });
+
+    await vehiclesRepository.save(vehicle);
 
     return vehicle;
   }
