@@ -14,7 +14,7 @@ class Vehicle {
   @Column()
   year: string;
 
-  @Column('int')
+  @Column('numeric', { precision: 6, scale: 3 })
   price: number;
 
   @Column()
@@ -23,7 +23,7 @@ class Vehicle {
   @Column()
   gas_type: string;
 
-  @Column('int')
+  @Column('numeric', { precision: 6, scale: 3 })
   used_km: number;
 }
 

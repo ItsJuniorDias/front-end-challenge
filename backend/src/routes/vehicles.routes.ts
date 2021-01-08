@@ -1,18 +1,19 @@
 import { Router } from 'express';
+import { getCustomRepository } from 'typeorm';
 
 import VehiclesRepository from '../repositories/VehiclesRepository';
 import CreateVehicleService from '../services/CreateVehicleService';
 
 const vehiclesRouter = Router();
-const vehiclesRepository = new VehiclesRepository();
 
-vehiclesRouter.get('/', (request, response) => {
-  const vehicles = vehiclesRepository.all();
+vehiclesRouter.get('/', async (request, response) => {
+  const vehiclesRepository = getCustomRepository(VehiclesRepository);
+  const vehicles = await vehiclesRepository.find();
 
   return response.json(vehicles);
 });
 
-vehiclesRouter.post('/', (request, response) => {
+vehiclesRouter.post('/', async (request, response) => {
   try {
     const {
       mark,
@@ -24,9 +25,9 @@ vehiclesRouter.post('/', (request, response) => {
       used_km,
     } = request.body;
 
-    const createVehicle = new CreateVehicleService(vehiclesRepository);
+    const createVehicle = new CreateVehicleService();
 
-    const vehicle = createVehicle.execute({
+    const vehicle = await createVehicle.execute({
       mark,
       model,
       year,

@@ -11,6 +11,7 @@ export default class CreateVehicles1610109428792 implements MigrationInterface {
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'mark',
@@ -29,7 +30,9 @@ export default class CreateVehicles1610109428792 implements MigrationInterface {
           },
           {
             name: 'price',
-            type: 'int',
+            type: 'numeric',
+            precision: 6,
+            scale: 3,
             isNullable: false,
           },
           {
@@ -44,7 +47,9 @@ export default class CreateVehicles1610109428792 implements MigrationInterface {
           },
           {
             name: 'used_km',
-            type: 'int',
+            type: 'numeric',
+            precision: 6,
+            scale: 3,
             isNullable: false,
           },
         ],

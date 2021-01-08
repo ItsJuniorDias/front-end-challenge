@@ -1,4 +1,5 @@
 import { getCustomRepository } from 'typeorm';
+
 import Vehicle from '../models/Vehicle';
 import VehiclesRepository from '../repositories/VehiclesRepository';
 
