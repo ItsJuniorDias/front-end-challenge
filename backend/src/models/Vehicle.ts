@@ -9,7 +9,6 @@ interface IVehicleModel {
   category: string;
   gas_type: string;
   used_km: number;
-  photos: string;
 }
 
 class Vehicle {
@@ -29,8 +28,6 @@ class Vehicle {
 
   used_km: number;
 
-  photos: string;
-
   constructor({
     mark,
     model,
@@ -39,7 +36,6 @@ class Vehicle {
     category,
     gas_type,
     used_km,
-    photos,
   }: IVehicleModel) {
     this.id = uuid();
     this.mark = mark;
@@ -49,7 +45,6 @@ class Vehicle {
     this.category = category;
     this.gas_type = gas_type;
     this.used_km = used_km;
-    this.photos = photos;
   }
 }
 

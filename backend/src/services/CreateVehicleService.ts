@@ -9,7 +9,6 @@ interface Request {
   category: string;
   gas_type: string;
   used_km: number;
-  photos: string;
 }
 
 class CreateVehicleService {
@@ -27,7 +26,6 @@ class CreateVehicleService {
     category,
     gas_type,
     used_km,
-    photos,
   }: Request): Vehicle {
     const vehicle = this.vehiclesRepository.create({
       mark,
@@ -37,7 +35,6 @@ class CreateVehicleService {
       category,
       gas_type,
       used_km,
-      photos,
     });
 
     return vehicle;

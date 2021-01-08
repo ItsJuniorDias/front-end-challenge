@@ -22,7 +22,6 @@ vehiclesRouter.post('/', (request, response) => {
       category,
       gas_type,
       used_km,
-      photos,
     } = request.body;
 
     const createVehicle = new CreateVehicleService(vehiclesRepository);
@@ -35,7 +34,6 @@ vehiclesRouter.post('/', (request, response) => {
       category,
       gas_type,
       used_km,
-      photos,
     });
 
     return response.json(vehicle);

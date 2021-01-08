@@ -8,7 +8,6 @@ interface CreateVehicleDTO {
   category: string;
   gas_type: string;
   used_km: number;
-  photos: string;
 }
 
 class VehiclesRepository {
@@ -30,7 +29,6 @@ class VehiclesRepository {
     category,
     gas_type,
     used_km,
-    photos,
   }: CreateVehicleDTO) {
     const vehicle = new Vehicle({
       mark,
@@ -40,7 +38,6 @@ class VehiclesRepository {
       category,
       gas_type,
       used_km,
-      photos,
     });
 
     this.vehicles.push(vehicle);
